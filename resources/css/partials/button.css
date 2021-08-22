@@ -1,0 +1,33 @@
+.btn-create {
+    @apply flex items-center px-6 py-2 bg-[#1a8f36]  text-white text-sm;
+}
+
+.btn-primary {
+    @apply flex items-center px-5 py-1 bg-[#1a8f36] text-white border-2 border-[#1a8f36] hover:bg-white hover:text-[#1a8f36] transition ease-in-out text-sm;
+}
+
+.btn-primary-outlined {
+    @apply flex items-center px-5 py-1 bg-white text-[#1a8f36] border-2 border-[#1a8f36] hover:bg-[#1a8f36] hover:text-white transition ease-in-out text-sm;
+}
+
+.btn-info {
+    @apply flex items-center px-5 py-1 bg-white text-blue-800 border-2 border-blue-800 hover:bg-blue-800 hover:text-white transition ease-in-out text-sm;
+}
+
+.btn-warning {
+    @apply flex items-center px-5 py-1 bg-red-700 text-white border-2 border-red-700 hover:bg-white hover:text-red-700 transition ease-in-out text-sm;
+}
+
+.btn-warning-outlined {
+    @apply flex items-center px-5 py-1 bg-white text-red-700 border-2 border-red-700 hover:bg-red-700 hover:text-white transition ease-in-out text-sm;
+}
+
+.btn-default {
+    @apply flex items-center px-5 py-1 bg-gray-100 text-main border-2 border-gray-100 hover:bg-white hover:border-main transition ease-in-out text-sm;
+}
+
+.btn-default-outlined {
+    @apply flex items-center px-5 py-1 bg-gray-100 text-gray-600 border-2 border-gray-100 hover:bg-white hover:text-gray-700 hover:border-gray-700 transition ease-in-out text-sm;
+}
+
+

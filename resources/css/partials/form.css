@@ -1,0 +1,102 @@
+.input-group {
+    @apply flex flex-col mb-3;
+}
+
+label {
+    @apply text-sm text-gray-500 mb-2;
+}
+
+input {
+    @apply w-full border-gray-400 font-sans focus:border-[#1a8f36] focus:ring-[#1a8f36];
+    @apply px-2 py-1.5 !important;
+    width: 100% !important;
+    font-weight: 300;
+    font-size: 16px;
+
+}
+
+input[type=text] {
+    @apply w-full border-gray-400 font-sans focus:border-[#1a8f36] focus:ring-[#1a8f36];
+    @apply px-2 py-1.5 !important;
+    width: 100% !important;
+    font-weight: 300;
+    font-size: 16px;
+    height: 40px !important;
+}
+
+input[type=number] {
+    @apply w-full border-gray-400 font-sans focus:border-[#1a8f36] focus:ring-[#1a8f36];
+    @apply px-2 py-1.5 !important;
+    width: 100% !important;
+    font-weight: 300;
+    font-size: 16px;
+    height: 40px !important;
+}
+
+[type=search] {
+    @apply w-full border-2 border-gray-300;
+    @apply px-2 py-1 !important;
+    @apply focus:border-[#1a8f36] focus:outline-none focus:ring-transparent focus:shadow-none;
+    width: 100% !important;
+    font-weight: 300;
+}
+
+[type=search]:focus {
+    outline: none
+}
+
+input::placeholder {
+    color: lightslategrey;
+    opacity: .5;
+    font-weight: 300;
+    font-size: 15px;
+}
+
+[type=checkbox] {
+    width: 14px !important;
+    height: 18px;
+    color: #1a8f36;
+    display: block;
+    -moz-transform: scale(1);
+    @apply border border-gray-400 focus:ring-transparent;
+}
+
+select {
+    @apply px-2 py-1.5 !important;
+    @apply border-gray-400 focus:border-[#1a8f36] focus:ring-[#1a8f36];
+}
+
+select::selection {
+    @apply bg-white text-gray-500;
+}
+
+option {
+    -webkit-appearance: none;
+    @apply bg-white text-gray-500;
+}
+
+.multiselect {
+    border-radius: 0 !important;
+    @apply border-gray-400 !important;
+}
+
+.multiselect-option.is-selected {
+    background: #1a8f36 !important;
+}
+
+.multiselect-multiple-label, .multiselect-placeholder, .multiselect-single-label {
+    padding-left: 8px !important;
+}
+
+textarea {
+    @apply border-gray-400 focus:border-[#1a8f36] focus:ring-[#1a8f36];
+}
+
+.toggle-on {
+    background: #1a8f36 !important;
+    border-color: #1a8f36 !important;
+}
+
+.toggle-off {
+    @apply bg-red-600 border-red-600 text-white !important;
+}

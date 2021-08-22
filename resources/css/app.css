@@ -1,0 +1,31 @@
+@import "tailwindcss/base";
+@import 'partials/main.css';
+@import "tailwindcss/components";
+@import 'partials/button.css';
+@import 'partials/modal.css';
+@import 'partials/form.css';
+@import 'partials/table.css';
+@import "tailwindcss/utilities";
+
+
+@layer base {
+    .login-form-container {
+        @apply flex flex-col w-[350px];
+    }
+    .user-login-form {
+        @apply px-6 py-8 shadow overflow-hidden rounded-2xl w-full;
+    }
+
+    .user-login-form > .form-group {
+        @apply flex flex-col mb-3;
+    }
+
+    .user-login-form > .form-group > .user-login-label {
+        @apply flex text-sm text-gray-500 mb-1;
+    }
+
+    .user-login-form > .form-group > .input-group > .user-login-input {
+        @apply flex w-full px-3 py-2 rounded-lg border border-gray-200;
+    }
+}
+

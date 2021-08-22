@@ -1,0 +1,2 @@
+const i=10;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC5qcyJdLCJuYW1lcyI6WyJpIl0sIm1hcHBpbmdzIjoiQUFBQSxNQUFNQSxFQUFJIiwic291cmNlc0NvbnRlbnQiOlsiY29uc3QgaSA9IDEwOyJdfQ==

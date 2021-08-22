@@ -1,0 +1,16 @@
+.modal-overlay {
+    @apply absolute w-full h-screen top-0 left-0 z-10 bg-black/0;
+}
+.modal-container {
+    @apply absolute top-[50%] left-[50%] z-[99] bg-white w-[calc(40vw)] flex flex-col;
+    transform: translate(-50%, -50%);
+}
+.modal-header {
+    @apply px-6 py-4 bg-gray-100 flex items-center justify-between;
+}
+.modal-footer {
+    @apply px-6 py-4 flex items-center justify-between mt-auto bg-gray-50;
+}
+.modal-body {
+    @apply px-6 py-4;
+}
