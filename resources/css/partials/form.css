@@ -33,6 +33,15 @@ input[type=number] {
     height: 40px !important;
 }
 
+input[type=tel] {
+    @apply w-full border-gray-400 font-sans focus:border-[#1a8f36] focus:ring-[#1a8f36];
+    @apply px-2 py-1.5 !important;
+    width: 100% !important;
+    font-weight: 300;
+    font-size: 16px;
+    height: 40px !important;
+}
+
 [type=search] {
     @apply w-full border-2 border-gray-300;
     @apply px-2 py-1 !important;
@@ -50,6 +59,18 @@ input::placeholder {
     opacity: .5;
     font-weight: 300;
     font-size: 15px;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
 }
 
 [type=checkbox] {
@@ -99,4 +120,16 @@ textarea {
 
 .toggle-off {
     @apply bg-red-600 border-red-600 text-white !important;
+}
+
+.vue-tel-input {
+    border-radius: 0 !important;
+    height: 40px !important;
+}
+
+.iti__flag-container {
+    width: 85px;
+}
+.iti__selected-flag {
+    font-size: 14px !important;
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="layout-container bg-gray-100">
+    <div class="layout-container bg-[#f2f4f8]">
         <app-header/>
         <slot/>
         <AppFooter />
@@ -17,7 +17,6 @@ export default {
     }
 }
 </script>
-
 <style src="@vueform/multiselect/themes/default.css"></style>
 <style src="@vueform/toggle/themes/default.css"></style>
 <style scoped>

@@ -2,8 +2,11 @@ import { createApp, h } from 'vue'
 import { createInertiaApp } from '@inertiajs/inertia-vue3'
 import { InertiaProgress } from '@inertiajs/progress'
 import VueClickAway from "vue3-click-away";
+import VueTelInput from 'vue-tel-input';
 
-
+const globalOptions = {
+    mode: 'international',
+};
 
 InertiaProgress.init({
     delay: 250,
@@ -26,6 +29,7 @@ createInertiaApp({
                 }
             })
             .use( VueClickAway )
+            .use( VueTelInput, globalOptions )
             .mount(el)
     },
 })

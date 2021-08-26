@@ -15,11 +15,11 @@ class CreateClientPhones extends Migration
     {
         Schema::create('client_phones', function (Blueprint $table) {
             $table->id();
+            $table->boolean('is_default')->default(0);
             $table->foreignId('client_id')->references('id')->on('clients');
             $table->boolean('domestic')->default(1);
-            $table->string('code')->default('0090');
+            $table->string('dial_code')->default('90');
             $table->string('phone_number');
-            $table->boolean('is_default')->default(0);
             $table->timestamps();
         });
     }

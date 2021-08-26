@@ -20,6 +20,7 @@ class CreatePackagesTable extends Migration
             $table->decimal('price', 8,2);
             $table->text('notes')->nullable();
             $table->foreignId('package_category_id')->references('id')->on('package_categories');
+            $table->foreignId('service_contract_id')->references('id')->on('service_contracts');
             $table->timestamps();
         });
     }

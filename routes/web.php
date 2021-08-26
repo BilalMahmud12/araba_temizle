@@ -12,6 +12,7 @@ use App\Http\Controllers\System\ServiceSpotController;
 use App\Http\Controllers\System\ServiceSpotTypeController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\ClientController;
+use Illuminate\Support\Facades\Session;
 
 /*
 |--------------------------------------------------------------------------
@@ -139,7 +140,10 @@ Route::prefix('client')->as('client.')->group(function () {
         Route::get('/login', [ClientController::class, 'login'])->name('login');
         Route::get('/signup', [ClientRegisterController::class, 'signup'])->name('signup');
         Route::post('/create-account', [ClientRegisterController::class, 'createAccount'])->name('create-account');
-        Route::post('/check', [ClientController::class, 'check'])->name('check');
+        Route::get('/account-activation/{client_id}', [ClientRegisterController::class, 'accountActivation'])->name('account-activation');
+        Route::post('/activate-client/{client_id}', [ClientRegisterController::class, 'activateClientAccount'])->name('activate-client');
+
+        Route::get('/setup-car/{client_id}', [ClientRegisterController::class, 'setUpCarPackage'])->name('setup-car');
     });
 
     Route::middleware(['auth:client'])->group(function () {
@@ -147,9 +151,7 @@ Route::prefix('client')->as('client.')->group(function () {
     });
 });
 
-Route::get('/send-activation-code', function (){
-    $key = "d1789f2dab410db03a70f0444feb7f5e";
-    $secret = '$2y$12$YdoYO.LhF77i6RosFyIqVupGN1FMmD.B6Q3XGkTi/NIhhKp7A/see';
-    $hash = hash_hmac('sha256', $key, $secret);
-    return $hash;
+Route::get('/sessions', function () {
+    Session::put('a_code', 995566);
+    return Session::all();
 });

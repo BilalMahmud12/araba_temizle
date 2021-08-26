@@ -8,8 +8,11 @@ use App\Models\System\Definitions\Area;
 use App\Models\System\Definitions\BuildingBlock;
 use App\Models\System\Definitions\District;
 use App\Models\System\Definitions\ServiceSpot;
+use App\Services\SmsMessage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 
 class ClientRegisterController extends Controller
@@ -49,7 +52,7 @@ class ClientRegisterController extends Controller
         ]);
     }
 
-    public function createAccount(): \Inertia\Response
+    public function createAccount()
     {
         request()->validate([
             'first_name' => 'required',
@@ -75,13 +78,12 @@ class ClientRegisterController extends Controller
         $client_phone = new Client\ClientPhone();
         $client_phone->client_id = $client->id;
         $client_phone->is_default = 1;
-        if (\request('is_international') == true) {
-            $client_phone->domestic = 0;
-            $client_phone->code = request('int_code');
-        } else {
+        if ( request('int_code') == '90' ) {
             $client_phone->domestic = 1;
-            $client_phone->code = '0090';
+        } else {
+            $client_phone->domestic = 0;
         }
+        $client_phone->dial_code = request('dial_code');
         $client_phone->phone_number = request('phone_number');
         $client_phone->save();
 
@@ -99,6 +101,47 @@ class ClientRegisterController extends Controller
         }
         $client_address->save();
 
-        return Inertia::render('Client/Auth/AccountActivation', []);
+
+        $activation = new SmsMessage();
+        $activation_code = $activation->createPassword();
+        $message =  $activation_code . ' ' . 'is Your New Account Activation Code';
+        $smsTo = $client_phone->code . $client_phone->phone_number;
+        if (App::getLocale() === 'en') {
+            $lang = 0;
+        } elseif(App::getLocale() === 'tr') {
+            $lang = 1;
+        } else {
+            $lang = 2;
+        }
+        $activation->sendSMS($smsTo, $message, $lang);
+        Session::put('a_code', $activation_code);
+
+        return Redirect::route('client.account-activation', $client->id);
+    }
+
+    public function accountActivation($id): \Inertia\Response
+    {
+        $client = Client::findOrFail($id);
+        $activation_code = Session::get('a_code');
+        return Inertia::render('Client/Auth/AccountActivation', [
+            'client' => $client,
+            'activation_code' => $activation_code
+        ]);
+    }
+
+    public function activateClientAccount($id): \Illuminate\Http\RedirectResponse
+    {
+        $client = Client::findOrFail($id);
+        $client->is_active = 1;
+        $client->save();
+        return Redirect::route('client.setup-car', $client->id);
+    }
+
+    public function setUpCarPackage($id): \Inertia\Response
+    {
+        $client = Client::findOrFail($id);
+        return Inertia::render('Client/AccountSetup/CarPackage', [
+            'client' => $client,
+        ]);
     }
 }

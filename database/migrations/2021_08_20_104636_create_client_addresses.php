@@ -15,8 +15,9 @@ class CreateClientAddresses extends Migration
     {
         Schema::create('client_addresses', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->nullable();
             $table->foreignId('client_id')->references('id')->on('clients');
+            $table->string('flat_no');
             $table->foreignId('service_spot_id')->references('id')->on('service_spots');
             $table->foreignId('area_id')->references('id')->on('areas');
             $table->foreignId('district_id')->references('id')->on('districts');

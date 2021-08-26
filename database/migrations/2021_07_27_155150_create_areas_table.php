@@ -18,6 +18,7 @@ class CreateAreasTable extends Migration
             $table->boolean('is_active')->default(1);
             $table->string('name');
             $table->text('notes')->nullable();
+            $table->foreignId('district_id')->references('id')->on('districts');
             $table->timestamps();
         });
     }

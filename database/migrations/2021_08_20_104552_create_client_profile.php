@@ -19,7 +19,7 @@ class CreateClientProfile extends Migration
             $table->string('national_id')->nullable();
             $table->string('photo')->nullable();
             $table->string('billing_address')->nullable();
-            $table->string('locale')->default('en');
+            $table->string('locale')->default('tr');
             $table->timestamps();
         });
     }
