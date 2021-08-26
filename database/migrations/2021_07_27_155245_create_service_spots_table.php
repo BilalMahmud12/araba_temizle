@@ -20,7 +20,6 @@ class CreateServiceSpotsTable extends Migration
             $table->text('notes')->nullable();
             $table->foreignId('spot_type_id')->references('id')->on('service_spot_types');
             $table->foreignId('area_id')->references('id')->on('areas');
-            $table->foreignId('district_id')->references('id')->on('districts');
             $table->timestamps();
         });
     }
