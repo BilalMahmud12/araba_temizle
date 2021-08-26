@@ -144,4 +144,5 @@ class ClientRegisterController extends Controller
             'client' => $client,
         ]);
     }
+
 }
