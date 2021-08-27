@@ -11,6 +11,7 @@ use App\Models\System\Definitions\Package;
 use App\Models\System\Definitions\PackageCategory;
 use App\Models\System\Definitions\ServiceSpot;
 use App\Services\SmsMessage;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Redirect;
@@ -61,53 +62,10 @@ class ClientRegisterController extends Controller
             'last_name' => 'required'
         ]);
 
-        $client_number = str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT);
-
-        $client = new Client();
-        $client->is_active = 0;
-        $client->first_name = request('first_name');
-        $client->last_name = request('last_name');
-        $client->email = request('email');
-        $client->client_number = 'C'. $client_number;
-        $client->save();
-
-        $client_profile = new Client\ClientProfile();
-        $client_profile->client_id = $client->id;
-        $client_profile->national_id = request('national_id');
-        $client_profile->locale = App::getLocale();
-        $client_profile->save();
-
-        $client_phone = new Client\ClientPhone();
-        $client_phone->client_id = $client->id;
-        $client_phone->is_default = 1;
-        if ( request('dial_code') == '90' ) {
-            $client_phone->domestic = 1;
-        } else {
-            $client_phone->domestic = 0;
-        }
-        $client_phone->dial_code = request('dial_code');
-        $client_phone->phone_number = request('phone_number');
-        $client_phone->save();
-
-
-        $client_address = new Client\ClientAddress();
-        $client_address->client_id = $client->id;
-        $client_address->district_id = request('district_id');
-        $client_address->area_id = request('area_id');
-        $client_address->service_spot_id = request('spot_id');
-        $client_address->flat_no = request('flat_no');
-        if (request('name') != null) {
-            $client_address->name = request('name');
-        } else {
-            $client_address->name = 'Default Address';
-        }
-        $client_address->save();
-
-
         $activation = new SmsMessage();
         $activation_code = $activation->createPassword();
         $message =  $activation_code . ' ' . 'is Your New Account Activation Code';
-        $smsTo = $client_phone->dial_code . $client_phone->phone_number;
+        $smsTo = request('dial_code') . request('phone_number');
         if (App::getLocale() === 'en') {
             $lang = 0;
         } elseif(App::getLocale() === 'tr') {
@@ -115,10 +73,60 @@ class ClientRegisterController extends Controller
         } else {
             $lang = 2;
         }
-        $activation->sendSMS($smsTo, $message, $lang);
-        Session::put('a_code', $activation_code);
 
-        return Redirect::route('client.signup.account-activation', $client->id);
+        $sms_response = $activation->sendSMS($smsTo, $message, $lang);
+
+        if ($sms_response == true) {
+
+            Session::put('a_code', $activation_code);
+
+            $client_number = str_pad(mt_rand(1,99999999),8,'0',STR_PAD_LEFT);
+
+            $client = new Client();
+            $client->is_active = 0;
+            $client->first_name = request('first_name');
+            $client->last_name = request('last_name');
+            $client->email = request('email');
+            $client->client_number = 'C'. $client_number;
+            $client->save();
+
+            $client_profile = new Client\ClientProfile();
+            $client_profile->client_id = $client->id;
+            $client_profile->national_id = request('national_id');
+            $client_profile->locale = App::getLocale();
+            $client_profile->save();
+
+            $client_phone = new Client\ClientPhone();
+            $client_phone->client_id = $client->id;
+            $client_phone->is_default = 1;
+            if ( request('dial_code') == '90' ) {
+                $client_phone->domestic = 1;
+            } else {
+                $client_phone->domestic = 0;
+            }
+            $client_phone->dial_code = request('dial_code');
+            $client_phone->phone_number = request('phone_number');
+            $client_phone->save();
+
+            $client_address = new Client\ClientAddress();
+            $client_address->client_id = $client->id;
+            $client_address->district_id = request('district_id');
+            $client_address->area_id = request('area_id');
+            $client_address->service_spot_id = request('spot_id');
+            $client_address->flat_no = request('flat_no');
+            if (request('name') != null) {
+                $client_address->name = request('name');
+            } else {
+                $client_address->name = 'Default Address';
+            }
+            $client_address->save();
+
+            return Redirect::route('client.signup.account-activation', $client->id);
+        } else {
+            Session::put('sms_result', $sms_response);
+            return Redirect::back()->with('info', $sms_response);
+        }
+
     }
 
     public function accountActivation($id): \Inertia\Response

@@ -10,6 +10,7 @@ use App\Http\Controllers\System\PackageController;
 use App\Http\Controllers\System\ServiceContractController;
 use App\Http\Controllers\System\ServiceSpotController;
 use App\Http\Controllers\System\ServiceSpotTypeController;
+use App\Services\SmsMessage;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Client\ClientController;
 use Illuminate\Support\Facades\Session;
@@ -158,4 +159,13 @@ Route::prefix('client')->as('client.')->group(function () {
 Route::get('/sessions', function () {
     Session::put('a_code', 995566);
     return Session::all();
+});
+
+Route::get('send-activation-code', function() {
+    $phone = '905413517177';
+    $message = 'Test Message from Postman';
+    $lang = 0;
+
+    $test = new SmsMessage();
+    $send = $test->sendSMS($phone, $message, $lang);
 });
