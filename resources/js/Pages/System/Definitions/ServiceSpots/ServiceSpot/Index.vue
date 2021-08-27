@@ -150,7 +150,7 @@ export default {
     watch: {
         params: {
             handler() {
-                this.$inertia.get(this.route('system.definitions.spots.service-spot-type.index'), this.params, { replace: true, preserveState: true });
+                this.$inertia.get(this.route('system.definitions.spots.service-spots.index'), this.params, { replace: true, preserveState: true });
             },
             deep: true
         }

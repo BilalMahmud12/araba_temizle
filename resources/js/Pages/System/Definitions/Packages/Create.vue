@@ -44,7 +44,7 @@
                                 valueProp="id"
                                 label="name"
                                 placeholder="Select Package Category"
-                                searchable="true"
+                                searchable
                                 trackBy="name"
                             />
                         </div>
@@ -56,6 +56,7 @@
                                 valueProp="id"
                                 label="name"
                                 placeholder="Select Service Contract"
+                                searchable
                             />
                         </div>
                         <text-input id="price" type="number" label="Package Price (₺₺)" v-model="form.price" />

@@ -6,10 +6,26 @@
                 <div class="step-title text-xl md:text-2xl font-bold text-gray-600">Create Account</div>
             </div>
         </div>
-        <div class="px-4 max-w-2xl py-8 mx-auto">
+
+        <div class="px-4 max-w-2xl py-6 mx-auto">
+            <div class="step-indicator py-6 px-6 bg-white shadow border-b border-gray-200">
+                <div class="indicator-bar h-2 w-full bg-gray-100 shadow-inner mb-4">
+                    <div class="w-[25%] h-full bg-main"></div>
+                </div>
+                <div class="flex items-center justify-between">
+                    <div class="step-title flex items-center space-x-2">
+                        <span class="material-icons text-gray-300">person</span>
+                        <span class="text-main ">Account Information</span>
+                    </div>
+                    <div class="step-count text-xs text-white flex items-center">
+                        <span class="px-2 py-1 border-r border-white bg-gray-100 text-main">Step</span>
+                        <span class="px-3 py-1 border-r border-white bg-main">1 / 4</span>
+                    </div>
+                </div>
+            </div>
             <form @submit.prevent="submit">
-                <div class="form-card bg-white shadow py-8 mb-8">
-                    <div class="form-group pb-6 mb-6 border-b border-gray-200">
+                <div class="form-card bg-white shadow pt-4 mb-8">
+                    <div class="form-group pb-8 mb-4 border-b border-gray-200">
                         <div class="group-title px-8 mb-4 text-lg text-accent flex">Personal Information</div>
                         <div class="group-input px-8">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -21,7 +37,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group pb-6 mb-6 border-b border-gray-200">
+                    <div class="form-group pb-8 mb-4 border-b border-gray-200">
                         <div class="group-title px-8 mb-4 text-lg text-accent flex">Address Information</div>
                         <div class="group-input px-8">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -74,7 +90,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form-group px-8">
+                    <div class="form-group px-8 pb-6">
                         <div class="flex items-center space-x-3 mb-6">
                             <Toggle labelledby="terms_agree" v-model="form.terms_agree" onLabel="Yes" offLabel="No" />
                             <label id="terms_agree" class="mb-0 text-gray-500">I agree about Service Digital Terms & Conditions.</label>
@@ -169,7 +185,7 @@ export default {
         'form.district_id': {
             handler() {
                 this.params.district = this.form.district_id;
-                this.$inertia.get( this.route('client.signup'),
+                this.$inertia.get( this.route('client.signup.account-info'),
                     this.params,
                     { preserveState: true, preserveScroll: true }
                 );
@@ -180,7 +196,7 @@ export default {
         'form.area_id': {
             handler() {
                 this.params.area = this.form.area_id;
-                this.$inertia.get( this.route('client.signup'),
+                this.$inertia.get( this.route('client.signup.account-info'),
                     this.params,
                     { preserveState: true, preserveScroll: true }
                 );
@@ -191,7 +207,7 @@ export default {
         'form.spot_id': {
             handler() {
                 this.params.spot = this.form.spot_id;
-                this.$inertia.get( this.route('client.signup'),
+                this.$inertia.get( this.route('client.signup.account-info'),
                     this.params,
                     { preserveState: true, preserveScroll: true }
                 );

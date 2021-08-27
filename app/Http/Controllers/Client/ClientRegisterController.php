@@ -7,6 +7,8 @@ use App\Models\Client;
 use App\Models\System\Definitions\Area;
 use App\Models\System\Definitions\BuildingBlock;
 use App\Models\System\Definitions\District;
+use App\Models\System\Definitions\Package;
+use App\Models\System\Definitions\PackageCategory;
 use App\Models\System\Definitions\ServiceSpot;
 use App\Services\SmsMessage;
 use Illuminate\Http\Request;
@@ -52,7 +54,7 @@ class ClientRegisterController extends Controller
         ]);
     }
 
-    public function createAccount()
+    public function createAccount(): \Illuminate\Http\RedirectResponse
     {
         request()->validate([
             'first_name' => 'required',
@@ -116,7 +118,7 @@ class ClientRegisterController extends Controller
         $activation->sendSMS($smsTo, $message, $lang);
         Session::put('a_code', $activation_code);
 
-        return Redirect::route('client.account-activation', $client->id);
+        return Redirect::route('client.signup.account-activation', $client->id);
     }
 
     public function accountActivation($id): \Inertia\Response
@@ -134,14 +136,26 @@ class ClientRegisterController extends Controller
         $client = Client::findOrFail($id);
         $client->is_active = 1;
         $client->save();
-        return Redirect::route('client.setup-car', $client->id);
+        return Redirect::route('client.signup.wash-package', $client->id);
     }
 
-    public function setUpCarPackage($id): \Inertia\Response
+
+    public function washPackage($id): \Inertia\Response
     {
         $client = Client::findOrFail($id);
+
+        $washCategories = PackageCategory::where('is_active', 1)->select('id', 'name')->get();
+
+        $category_id = request('category');
+        if (request('category')) {
+            $washPackages = Package::where('is_active', 1)->where('package_category_id', $category_id)->with('packageCategory')->get();
+        } else {
+            $washPackages = [];
+        }
         return Inertia::render('Client/AccountSetup/CarPackage', [
             'client' => $client,
+            'washCategories' => $washCategories,
+            'washPackages' => $washPackages
         ]);
     }
 

@@ -138,12 +138,16 @@ Route::prefix('client')->as('client.')->group(function () {
 
     Route::middleware(['guest:client'])->group(function () {
         Route::get('/login', [ClientController::class, 'login'])->name('login');
-        Route::get('/signup', [ClientRegisterController::class, 'signup'])->name('signup');
-        Route::post('/create-account', [ClientRegisterController::class, 'createAccount'])->name('create-account');
-        Route::get('/account-activation/{client_id}', [ClientRegisterController::class, 'accountActivation'])->name('account-activation');
-        Route::post('/activate-client/{client_id}', [ClientRegisterController::class, 'activateClientAccount'])->name('activate-client');
 
-        Route::get('/setup-car/{client_id}', [ClientRegisterController::class, 'setUpCarPackage'])->name('setup-car');
+        // Create Account Routes
+        Route::prefix('signup')->as('signup.')->group(function(){
+            Route::get('/account-info', [ClientRegisterController::class, 'signup'])->name('account-info');
+            Route::get('/account-activation/{client_id}', [ClientRegisterController::class, 'accountActivation'])->name('account-activation');
+            Route::get('/wash-package/{client_id}', [ClientRegisterController::class, 'washPackage'])->name('wash-package');
+        });
+
+        Route::post('/create-account', [ClientRegisterController::class, 'createAccount'])->name('create-account');
+        Route::post('/activate-client/{client_id}', [ClientRegisterController::class, 'activateClientAccount'])->name('activate-client');
     });
 
     Route::middleware(['auth:client'])->group(function () {

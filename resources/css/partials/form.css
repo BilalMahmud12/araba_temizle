@@ -83,12 +83,10 @@ input[type=number] {
 }
 
 select {
-    @apply px-2 py-1.5 !important;
-    @apply border-gray-400 focus:border-[#1a8f36] focus:ring-[#1a8f36];
-}
-
-select::selection {
-    @apply bg-white text-gray-500;
+    background-image: none !important;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    text-indent: 1px;
 }
 
 option {
@@ -99,8 +97,11 @@ option {
 .multiselect {
     border-radius: 0 !important;
     @apply border-gray-400 !important;
+    font-size: 14px !important;
 }
-
+.multiselect-option {
+    font-size: 14px !important;
+}
 .multiselect-option.is-selected {
     background: #1a8f36 !important;
 }

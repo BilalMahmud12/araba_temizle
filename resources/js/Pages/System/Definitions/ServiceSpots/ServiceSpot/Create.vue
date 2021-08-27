@@ -47,7 +47,7 @@
                                 valueProp="id"
                                 label="name"
                                 placeholder="Select Service Spot Type"
-                                searchable="true"
+                                searchable
                                 trackBy="name"
                             />
                         </div>
@@ -59,7 +59,7 @@
                                 valueProp="id"
                                 label="name"
                                 placeholder="Select Service Area"
-                                searchable="true"
+                                searchable
                                 trackBy="name"
                             />
                         </div>

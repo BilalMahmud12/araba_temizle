@@ -2,7 +2,7 @@
     <div class="header bg-gray-700 py-3">
         <div class="px-6 md:max-w-5xl mx-auto flex items-center justify-between">
             <div class="header-left">
-                <a :href="route('client.signup')" class="flex items-center">
+                <a :href="route('client.signup.account-info')" class="flex items-center">
                     <img src="/site/images/araba_temizle_logo_light.svg"
                          alt="araba-temizle-logo"
                          width="112" height="41"

@@ -30,7 +30,7 @@ export default {
         placeholder: String,
         error: String,
     },
-    emits: ['update'],
+    emits: ['update:modelValue'],
     methods: {
         focus() {
             this.$refs.input.focus()
