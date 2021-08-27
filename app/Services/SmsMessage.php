@@ -6,7 +6,7 @@ namespace App\Services;
 
 class SmsMessage
 {
-    public function createPassword()
+    public function createPassword(): string
     {
         return str_pad(mt_rand(1,999999),6,'0',STR_PAD_LEFT);
     }

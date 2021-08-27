@@ -80,7 +80,7 @@ class ClientRegisterController extends Controller
         $client_phone = new Client\ClientPhone();
         $client_phone->client_id = $client->id;
         $client_phone->is_default = 1;
-        if ( request('int_code') == '90' ) {
+        if ( request('dial_code') == '90' ) {
             $client_phone->domestic = 1;
         } else {
             $client_phone->domestic = 0;
@@ -96,7 +96,7 @@ class ClientRegisterController extends Controller
         $client_address->area_id = request('area_id');
         $client_address->service_spot_id = request('spot_id');
         $client_address->flat_no = request('flat_no');
-        if (\request('name') != null) {
+        if (request('name') != null) {
             $client_address->name = request('name');
         } else {
             $client_address->name = 'Default Address';
@@ -107,7 +107,7 @@ class ClientRegisterController extends Controller
         $activation = new SmsMessage();
         $activation_code = $activation->createPassword();
         $message =  $activation_code . ' ' . 'is Your New Account Activation Code';
-        $smsTo = $client_phone->code . $client_phone->phone_number;
+        $smsTo = $client_phone->dial_code . $client_phone->phone_number;
         if (App::getLocale() === 'en') {
             $lang = 0;
         } elseif(App::getLocale() === 'tr') {
