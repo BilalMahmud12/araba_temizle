@@ -81,11 +81,9 @@ export default {
         flash: Object,
     },
     setup(props) {
-        const volumeOn = ref(true);
-
         const form = useForm({
             id: props.PackageCategory.id,
-            is_active: props.PackageCategory.is_active === 1 ? true : false,
+            is_active: props.PackageCategory.is_active === 1,
             name: props.PackageCategory.name,
             notes: props.PackageCategory.notes,
             remember: true
@@ -96,7 +94,7 @@ export default {
         function destroy() {
             form.delete( route('system.definitions.package-categories.destroy', form.id),  { preserveScroll: true })
         }
-        return { volumeOn ,form, submit, destroy }
+        return { form, submit, destroy }
     },
     methods: {
 

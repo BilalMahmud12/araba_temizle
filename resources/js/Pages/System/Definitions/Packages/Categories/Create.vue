@@ -65,9 +65,8 @@ export default {
         Link
     },
     setup() {
-        const volumeOn = ref(false);
         const form = useForm({
-            is_active: volumeOn,
+            is_active: null,
             name: null,
             notes: null,
             remember: true
@@ -75,7 +74,7 @@ export default {
         function submit() {
             form.post(route('system.definitions.package-categories.store'), form)
         }
-        return { volumeOn ,form, submit }
+        return { form, submit }
 
     }
 }
