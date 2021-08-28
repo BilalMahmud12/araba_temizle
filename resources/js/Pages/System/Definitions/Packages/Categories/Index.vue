@@ -32,7 +32,7 @@
                             <tr v-for="record in records.data" :key="record.id">
                                 <td>{{ record.id }}</td>
                                 <td>
-                                    <div class="status-inactive" v-if="record.is_active === 0">Inactive</div>
+                                    <div class="status-inactive" v-if="!record.is_active">Inactive</div>
                                     <div class="status-active" v-else>Active</div>
                                 </td>
                                 <td>{{ record.name }}</td>
